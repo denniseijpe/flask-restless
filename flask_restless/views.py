@@ -880,16 +880,18 @@ class API(ModelView):
         # create a placeholder for the relations of the returned models
         relations = frozenset(get_relations(self.model))
         # do not follow relations that will not be included in the response
-        if self.include_columns is not None:
-            cols = frozenset(self.include_columns)
-            rels = frozenset(self.include_relations)
-            relations &= (cols | rels)
-        elif self.exclude_columns is not None:
+        #if self.include_columns is not None:
+        #    cols = frozenset(self.include_columns)
+        #    rels = frozenset(self.include_relations)
+        #    relations &= (cols | rels)
+        #el
+        if self.exclude_columns is not None:
             relations -= frozenset(self.exclude_columns)
         deep = dict((r, {}) for r in relations)
         return to_dict(inst, deep, exclude=self.exclude_columns,
                        exclude_relations=self.exclude_relations,
-                       include=self.include_columns,
+                       #include=self.include_columns,
+                       include=None,
                        include_relations=self.include_relations,
                        include_methods=self.include_methods)
 
